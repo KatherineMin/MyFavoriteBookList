@@ -29,7 +29,7 @@ router.get('/', (req, res, next) => {
 router.get('/add', (req, res, next) => {
   res.render('books', { 
     title: 'Books',
-    book: new book()})                                                                                                               
+    books: new book()})                                                                                                               
 });
 
 // POST process the Book Details page and create a new Book - CREATE
@@ -45,7 +45,7 @@ router.post('/add', async (req, res, next) => {
     res.redirect('/books')
   } catch {
     res.render('books/add', {
-      book : item
+      books : item
     })
   }
   // book.save((err, newBook) => {
@@ -67,18 +67,52 @@ router.get('/:id', (req, res) => {
 
 // GET the Book Details page in order to edit an existing Book
 router.get('/:id', (req, res, next) => {
-  res.send('Edit Author ' + req.params.id)
+  let id = ObjectID(req.params.id)
+
+  book.findById(id, (err, newBook) => {
+    if (err) {
+      return console.error(err);
+    } else {
+      res.render('books/details', {
+        title: 'Books',
+        books: newBook
+      })
+    }
+  })
 });
 
 // POST - process the information passed from the details form and update the document
 router.post('/:id', (req, res, next) => { // put
   let id = ObjectID(req.params.id)
-  res.send('Update Author ' + req.params.id)
+  let newBook = new book({
+    title: req.body.title, 
+    price: req.body.price, 
+    author: req.body.author, 
+    genre: req.body.genre
+  })
+
+  book.updateOne({_id: id}, newBook, (err) => {
+    if(err) {
+      console.log(err)
+      res.end(err)
+    } else {
+      res.redirect('/books')
+    }
+  })
 });
 
 // GET - process the delete by user id
 router.get('/delete/:id', (req, res, next) => {
-  res.send('Delete Author ' + req.params.id)
+  let id = ObjectID(req.params.id)
+
+  book.remove({_id: id}, (err) => {
+    if(err) {
+      console.log(err)
+      res.end(err)
+    } else {
+      res.redirect('/books')
+    }
+  })
 });
 
 
