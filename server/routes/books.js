@@ -34,7 +34,7 @@ router.get('/add', (req, res, next) => {
 
 // POST process the Book Details page and create a new Book - CREATE
 router.post('/add', async (req, res, next) => {
-  const item = new book({
+  const item = new Book({
     title: req.body.title, 
     price: req.body.price, 
     author: req.body.author, 
@@ -80,7 +80,7 @@ router.get('/:id', (req, res, next) => {
 // POST - process the information passed from the details form and update the document
 router.post('/:id', (req, res, next) => { // put
   let id = req.params.id
-  let newBook = new book({
+  let newBook = new Book({
     title: req.body.title, 
     price: req.body.price, 
     author: req.body.author, 
