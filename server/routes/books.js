@@ -27,7 +27,7 @@ router.get('/', (req, res, next) => {
 
 //  GET the Book Details page in order to add a new Book
 router.get('/add', (req, res, next) => {
-  res.render('books', { 
+  res.render('books/details', { 
     title: 'Books',
     books: new book()})                                                                                                               
 });
@@ -60,10 +60,6 @@ router.post('/add', async (req, res, next) => {
   // })
 });
 
-// follow
-router.get('/:id', (req, res) => {
-  res.send('Show Author ' + req.params.id)
-})
 
 // GET the Book Details page in order to edit an existing Book
 router.get('/:id', (req, res, next) => {
