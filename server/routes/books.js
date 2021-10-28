@@ -2,7 +2,8 @@
 let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
-const books = require('../models/books');
+// const { title } = require('process');
+// const books = require('../models/books');
 
 // define the book model
 let book = require('../models/books');
@@ -26,17 +27,29 @@ router.get('/', (req, res, next) => {
 
 //  GET the Book Details page in order to add a new Book
 router.get('/add', (req, res, next) => {
-  res.render('index')
-  // res.render('books/details')                                                                                                                
+  res.render('books/details', { 
+    title: 'Books',
+    book: new book()})                                                                                                               
 });
 
 // POST process the Book Details page and create a new Book - CREATE
 router.post('/add', (req, res, next) => {
-
-    /*****************
-     * ADD CODE HERE *
-     *****************/
-
+  const item = new book({
+    title: req.body.title, 
+    price: req.body.price, 
+    author: req.body.author, 
+    genre: req.body.genre
+  })
+  book.save((err, newBook) => {
+    if (err) {
+      res.render('books/add', {
+        book : item,
+        errorMessage: "Error creating Book"
+      })
+    } else {
+      res.redirect('/books')
+    }
+  })
 });
 
 // GET the Book Details page in order to edit an existing Book
