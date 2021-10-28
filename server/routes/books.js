@@ -60,29 +60,25 @@ router.post('/add', async (req, res, next) => {
   // })
 });
 
+// follow
+router.get('/:id', (req, res) => {
+  res.send('Show Author ' + req.params.id)
+})
+
 // GET the Book Details page in order to edit an existing Book
 router.get('/:id', (req, res, next) => {
-
-    /*****************
-     * ADD CODE HERE *
-     *****************/
+  res.send('Edit Author ' + req.params.id)
 });
 
 // POST - process the information passed from the details form and update the document
-router.post('/:id', (req, res, next) => {
-
-    /*****************
-     * ADD CODE HERE *
-     *****************/
-
+router.post('/:id', (req, res, next) => { // put
+  let id = ObjectID(req.params.id)
+  res.send('Update Author ' + req.params.id)
 });
 
 // GET - process the delete by user id
 router.get('/delete/:id', (req, res, next) => {
-
-    /*****************
-     * ADD CODE HERE *
-     *****************/
+  res.send('Delete Author ' + req.params.id)
 });
 
 
