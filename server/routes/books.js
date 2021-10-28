@@ -27,7 +27,7 @@ router.get('/', (req, res, next) => {
 
 //  GET the Book Details page in order to add a new Book
 router.get('/add', (req, res, next) => {
-  res.render('books/details', { 
+  res.render('books', { 
     title: 'Books',
     book: new book()})                                                                                                               
 });
