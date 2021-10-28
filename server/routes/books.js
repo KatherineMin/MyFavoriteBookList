@@ -87,7 +87,7 @@ router.post('/:id', (req, res, next) => { // put
     genre: req.body.genre
   })
 
-  book.updateOne({_id: id}, newBook, (err) => {
+  book.updateOne({"_id": id}, newBook, (err) => {
     if(err) {
       console.log(err)
       res.end(err)
@@ -101,7 +101,7 @@ router.post('/:id', (req, res, next) => { // put
 router.get('/delete/:id', (req, res, next) => {
   let id = req.params.id
 
-  book.remove({_id: id}, (err) => {
+  book.remove({"_id": id}, (err) => {
     if(err) {
       console.log(err)
       res.end(err)
